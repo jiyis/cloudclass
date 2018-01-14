@@ -12,6 +12,7 @@ Homestead.yaml
 /public/images
 /public/language
 /public/vendor
+/public/fonts
 /public/build
 /public/uploads/*
 /public/mix-manifest.json
