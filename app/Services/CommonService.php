@@ -11,8 +11,10 @@ namespace App\Services;
 
 
 use App\Models\Category;
+use App\Models\CourseCategory;
 use App\Models\Permission;
 use App\Models\Role;
+use App\Repository\CourseRepository;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Auth;
@@ -117,6 +119,19 @@ class CommonService
         return $categories->groupBy('type')->map(function ($item) {
             return $item->pluck('name', 'id');
         })->toArray();
+    }
+
+    /**
+     * 获取所有的付费课程
+     * @return mixed
+     */
+    public static function getAllPayCourses()
+    {
+        //取出所有的付费课程id
+        $ids = CourseCategory::where(['category_id' => 10])->get()->pluck('class_id')->toArray();
+        $courses = app(CourseRepository::class)->findWhereIn('id', $ids);
+
+        return $courses->pluck('name', 'id');
     }
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -32,6 +33,14 @@ class Course extends Model
     public function category()
     {
         return $this->belongsToMany(Category::class, 'category_has_class', 'class_id', 'category_id');
+    }
+
+    /**
+     * 付费课程购买人
+     */
+    public function user()
+    {
+        return $this->belongsToMany(User::class, 'member_has_courses', 'class_id', 'user_id');
     }
 
 

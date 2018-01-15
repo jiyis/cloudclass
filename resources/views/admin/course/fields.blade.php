@@ -193,9 +193,9 @@
                 //如果已经上传，显示出来
                 var myDropzone = this;
                 if($('#userpicval').val() != ""){
-                    var mockFile = { name: '项目图片' };
+                    var mockFile = { name: '课程图片' };
                     myDropzone.options.addedfile.call(myDropzone, mockFile);
-                    myDropzone.options.thumbnail.call(myDropzone, mockFile, $('#userpicval').val());
+                    myDropzone.options.thumbnail.call(myDropzone, mockFile, "{{ Storage::url('/') }}"+$('#userpicval').val());
                     $('.dz-progress').remove();
                     $('.dz-size').empty();
                 }
@@ -209,7 +209,7 @@
                 });
                 this.on("removedfile", function (file) {
                     console.log("上传头像失败");
-                    //toastr.success('上传头像失败');
+                    toastr.error('上传头像失败');
                 });
             }
         });

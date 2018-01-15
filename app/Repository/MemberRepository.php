@@ -32,4 +32,27 @@ class MemberRepository extends BaseRepository
 
     }
 
+    /**
+     * @param array $attributes
+     * @return mixed
+     */
+    public function create(array $attributes)
+    {
+        return tap(parent::create($attributes), function ($member) use ($attributes) {
+            $member->course()->sync($attributes['courses']);
+        });
+    }
+
+    /**
+     * @param array $attributes
+     * @return mixed
+     */
+    public function update(array $attributes, $id)
+    {
+        return tap(parent::update($attributes, $id), function ($member) use ($attributes) {
+            $member->course()->sync($attributes['courses']);
+        });
+    }
+
+
 }

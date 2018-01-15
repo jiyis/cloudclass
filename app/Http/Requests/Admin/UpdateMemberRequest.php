@@ -18,23 +18,12 @@ class UpdateMemberRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|max:20|alpha_dash',
+            'name'     => 'required|max:20|alpha_dash',
             'nickname' => 'string|max:50',
-            'email'    => [
-                'required',
-                Rule::unique('users')->where(function ($query) {
-                    $query->where('email', $this->input('email'))->whereNull('deleted_at');
-                })->ignore($this->route()->member),
-            ],
+            'email'    => 'required|unique:users,email,'.$this->route()->member,
             'password' => 'sometimes|max:20',
-            'category'     => [
-                'required',
-                'integer',
-                Rule::unique('users')->where(function ($query) {
-                    $query->where('name', $this->input('name'))->whereNull('deleted_at');
-                })->ignore($this->route()->member),
-            ],
         ];
+
     }
 
     public function messages()
@@ -46,8 +35,6 @@ class UpdateMemberRequest extends Request
             'email.required' => '邮箱不能为空',
             'email.email' => '邮箱非法',
             'password.max' => '密码最多20个字符',
-            'category.required' => '产品类别不能为空',
-            'category.unique' => '用户已存在',
         ];
     }
 }

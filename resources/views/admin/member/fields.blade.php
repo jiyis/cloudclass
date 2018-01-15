@@ -3,7 +3,7 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <i class="fa fa-edit"></i>
-                <h3 class="box-title"> 客户编辑</h3>
+                <h3 class="box-title"> 会员编辑</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -20,12 +20,7 @@
                             {!! Form::text('nickname', old('nickname'), ['class' => 'form-control','placeholder' => '请填写昵称']) !!}
                         </div>
                     </div>
-                    <div class="form-group">
-                        {!! Form::label('category', '产品类型',['class'=>'col-sm-2 control-label']) !!}
-                        <div class="col-sm-4">
-                            {!! Form::select('category', config('custom.category'), null, ['class' => 'form-control select2']) !!}
-                        </div>
-                    </div>
+
                     <div class="form-group">
                         {!! Form::label('email', '邮箱',['class'=>'col-sm-2 control-label']) !!}
                         <div class="col-sm-4">
@@ -36,6 +31,12 @@
                         {!! Form::label('password', '密码',['class'=>'col-sm-2 control-label']) !!}
                         <div class="col-sm-4">
                             {!! Form::password('password', ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('courses', '可看课程',['class'=>'col-sm-2 control-label']) !!}
+                        <div class="col-sm-4">
+                            {!! Form::select('courses[]', $courses, null, ['class' => 'form-control select2 multi-courses','multiple' => 'multiple']) !!}
                         </div>
                     </div>
                 </div>
@@ -55,3 +56,14 @@
         </div>
     </div>
 </div>
+@section('javascript')
+    @parent
+    <script type="text/javascript">
+        $(function() {
+            $(".multi-courses").select2({
+                placeholder: "",
+            });
+        })
+
+    </script>
+@endsection

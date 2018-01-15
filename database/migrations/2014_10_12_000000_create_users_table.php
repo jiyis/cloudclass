@@ -17,13 +17,11 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('nickname')->nullable();
-            $table->string('category')->comment("品类");
             $table->string('email',100)->nullable();
             $table->string('password',100);
             $table->string('ip', 20)->nullable();
             $table->string('last_login_at')->nullable();
             $table->rememberToken();
-            $table->integer('belong_to')->comment('该用户提交的项目提交的审核人');
             $table->timestamps();
             $table->softDeletes();
         });

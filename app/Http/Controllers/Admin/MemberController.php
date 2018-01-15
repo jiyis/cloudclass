@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Repository\AdminUserRepository;
+use App\Repository\CourseRepository;
+use App\Services\CommonService;
 use Illuminate\Http\Request;
 use App\Repository\MemberRepository;
 use App\Http\Requests\Admin\CreateMemberRequest;
@@ -12,30 +13,30 @@ use Breadcrumbs, Toastr;
 class MemberController extends Controller
 {
     protected $member;
-    protected $adminUser;
 
-    public function __construct(MemberRepository $member, AdminUserRepository $adminUser)
+    public function __construct(MemberRepository $member)
     {
         parent::__construct();
         $this->member = $member;
-        $this->adminUser = $adminUser;
 
         Breadcrumbs::register('admin-member', function ($breadcrumbs) {
             $breadcrumbs->parent('控制台');
-            $breadcrumbs->push('客户管理', route('admin.member.index'));
+            $breadcrumbs->push('会员管理', route('admin.member.index'));
         });
+
+        view()->share('courses', CommonService::getAllPayCourses());
     }
 
     public function index()
     {
         Breadcrumbs::register('admin-member-index', function ($breadcrumbs) {
             $breadcrumbs->parent('admin-member');
-            $breadcrumbs->push('客户列表', route('admin.member.index'));
+            $breadcrumbs->push('会员列表', route('admin.member.index'));
         });
 
         $members = $this->member->all();
-        $users = $this->adminUser->findWhereIn('id', $members->pluck('belong_to')->toArray())->pluck('nickname', 'id')->toArray();
-        return view('admin.member.index', compact('members','users'));
+
+        return view('admin.member.index', compact('members'));
     }
 
     /**
@@ -47,7 +48,7 @@ class MemberController extends Controller
     {
         Breadcrumbs::register('admin-member-create', function ($breadcrumbs) {
             $breadcrumbs->parent('admin-member');
-            $breadcrumbs->push('添加客户', route('admin.member.create'));
+            $breadcrumbs->push('添加会员', route('admin.member.create'));
         });
         return view('admin.member.create');
     }
@@ -63,10 +64,10 @@ class MemberController extends Controller
 
         $result = $this->member->create($request->all());
         if(!$result) {
-            Toastr::error('新客户添加失败!');
+            Toastr::error('新会员添加失败!');
             return redirect(route('admin.member.create'));
         }
-        Toastr::success('新客户添加成功!');
+        Toastr::success('新会员添加成功!');
         return redirect('admin/member');
     }
 
@@ -91,10 +92,13 @@ class MemberController extends Controller
     {
         Breadcrumbs::register('admin-member-edit', function ($breadcrumbs) use ($id) {
             $breadcrumbs->parent('admin-member');
-            $breadcrumbs->push('编辑客户', route('admin.member.edit', ['id' => $id]));
+            $breadcrumbs->push('编辑会员', route('admin.member.edit', ['id' => $id]));
         });
 
         $member = $this->member->find($id);
+
+        //获取已购买的课程
+        $member->courses = $member->course;
 
         return view('admin.member.edit', compact('member'));
     }
@@ -111,7 +115,7 @@ class MemberController extends Controller
         $user = $this->member->findWithoutFail($id);
 
         if (empty($user)) {
-            Toastr::error('客户未找到');
+            Toastr::error('会员未找到');
 
             return redirect(route('admin.member.index'));
         }
@@ -122,7 +126,7 @@ class MemberController extends Controller
         }
         $user = $this->member->update($data, $id);
 
-        Toastr::success('客户更新成功.');
+        Toastr::success('会员更新成功.');
 
         return redirect(route('admin.member.index'));
 
@@ -138,12 +142,12 @@ class MemberController extends Controller
     {
         $user = $this->member->findWithoutFail($id);
         if (empty($user)) {
-            Toastr::error('客户未找到');
+            Toastr::error('会员未找到');
 
             return response()->json(['status' => 0]);
         }
         $result = $this->member->delete($id);
-        //Toastr::success('客户删除成功');
+        //Toastr::success('会员删除成功');
 
         return response()->json($result ? ['status' => 1] : ['status' => 0]);
     }

@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['namespace' => 'Api', 'prefix' => 'api', 'as' => 'api.'], function () {
+    Route::get('course/list', 'CourseController@list')->name('course.list');
+});

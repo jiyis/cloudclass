@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Course;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -35,6 +36,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * 会员购买的付费课程
+     */
+    public function course()
+    {
+        return $this->belongsToMany(Course::class, 'member_has_courses', 'user_id', 'class_id');
+    }
 
     public function setPasswordAttribute($password)
     {

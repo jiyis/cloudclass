@@ -13,8 +13,8 @@
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <i class="fa fa-bar-chart-o"></i>
-                        <h3 class="box-title">客户列表</h3>
-                        <a href="{{ route('admin.member.create') }}" class="btn btn-primary header-btn">新增客户</a>
+                        <h3 class="box-title">会员列表</h3>
+                        <a href="{{ route('admin.member.create') }}" class="btn btn-primary header-btn">新增会员</a>
                     </div>
                     <div class="box-body">
                         <table class="table table-bordered table-striped datatable">
@@ -27,9 +27,7 @@
                                 </th>
                                 <th>用户名</th>
                                 <th>昵称</th>
-                                <th>产品类别</th>
                                 <th>邮箱</th>
-                                <th>所属审核人</th>
                                 <th>创建时间</th>
                                 <th>操作</th>
                             </tr>
@@ -44,9 +42,7 @@
                                     </td>
                                     <td>{{ $member->name }}</td>
                                     <td>{{ $member->nickname }}</td>
-                                    <td>{{ config('custom.category')[$member->category] }}</td>
                                     <td>{{ $member->email }}</td>
-                                    <td>{{ $users[$member->belong_to] }}</td>
                                     <td>{{ $member->created_at }}</td>
                                     <td>
                                         <a href="{{ route('admin.member.edit',['id'=>$member->id]) }}" class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 编辑</a>
@@ -74,9 +70,9 @@
         });
         $(".user-delete").click(function () {
             Rbac.ajax.delete({
-                confirmTitle: '确定删除客户?',
+                confirmTitle: '确定删除会员?',
                 href: $(this).data('href'),
-                successTitle: '客户删除成功'
+                successTitle: '会员删除成功'
             });
         });
     </script>

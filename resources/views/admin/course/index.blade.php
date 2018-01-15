@@ -45,7 +45,7 @@
                                     <td>{{ $course->name }}</td>
                                     <td>{{ $course->period }}</td>
                                     <td>{{ $course->minute }}</td>
-                                    <td>{{ $course->titlepic }}</td>
+                                    <td><img width="80" src="{{ Storage::url($course->titlepic) }}"></td>
                                     <td>{{ $course->click }}</td>
                                     <td>{{ $course->created_at }}</td>
                                     <td>

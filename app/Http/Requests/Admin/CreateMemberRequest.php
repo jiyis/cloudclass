@@ -13,20 +13,8 @@ class CreateMemberRequest extends Request
         return [
             'name'     => 'required|max:20|alpha_dash',
             'nickname' => 'string|max:50',
-            'email'    => [
-                'required',
-                Rule::unique('users')->where(function ($query) {
-                    $query->where('email', $this->input('email'))->whereNull('deleted_at');
-                }),
-            ],
+            'email'    => 'required|unique:users',
             'password' => 'sometimes|max:20',
-            'category' => [
-                'required',
-                'integer',
-                Rule::unique('users')->where(function ($query) {
-                    $query->where('name', $this->input('name'))->whereNull('deleted_at');
-                }),
-            ],
         ];
     }
 
@@ -38,9 +26,8 @@ class CreateMemberRequest extends Request
             'name.max'          => '用户名称最多20个字符',
             'email.required'    => '邮箱不能为空',
             'email.email'       => '邮箱非法',
+            'email.unique'      => '邮箱已存在',
             'password.max'      => '密码最多20个字符',
-            'category.required' => '产品类别不能为空',
-            'category.unique'   => '用户已存在',
         ];
     }
 
