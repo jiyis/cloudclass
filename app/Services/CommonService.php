@@ -134,5 +134,18 @@ class CommonService
         return $courses->pluck('name', 'id');
     }
 
+    /**
+     * 根据id获取栏目列表
+     * @param $id
+     * @return mixed
+     */
+    public static function getCategoryById($id)
+    {
+        //取出所有的付费课程id
+        $categories = Category::where(['type' => $id])->get();
+
+        return $categories->pluck('name', 'id');
+    }
+
 
 }

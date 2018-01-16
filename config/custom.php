@@ -33,6 +33,11 @@ return [
             'value' => 'price',
             'type'  => 'single',
         ],
+        4 => [
+            'label' => "新闻类型",
+            'value' => 'news',
+            'type'  => 'multi',
+        ],
     ],
 
     /**

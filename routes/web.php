@@ -50,6 +50,12 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'mi
     //课程管理
     Route::resource('course', 'CourseController');
 
+    //单页管理
+    Route::resource('page', 'PageController');
+
+    //列表管理
+    Route::resource('list', 'ListController');
+
 
     //上传图片
     Route::post('upload/uploadFile','UploadController@uploadFile')->name('upload.uploadfile');
