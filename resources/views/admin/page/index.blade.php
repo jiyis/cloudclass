@@ -27,6 +27,7 @@
                                 </th>
                                 <th>单页名称</th>
                                 <th>单页路由</th>
+                                <th>单页图片</th>
                                 <th>创建时间</th>
                                 <th>操作</th>
                             </tr>
@@ -41,6 +42,7 @@
                                     </td>
                                     <td>{{ $page->name }}</td>
                                     <td>{{ $page->url }}</td>
+                                    <td><img width="80" src="{{ Storage::url($page->titlepic) }}"></td>
                                     <td>{{ $page->created_at }}</td>
                                     <td>
                                         <a href="{{ route('admin.page.edit',['id'=>$page->id]) }}" class="btn btn-white btn-xs"><i class="fa fa-pencil"></i> 编辑</a>

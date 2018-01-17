@@ -16,6 +16,7 @@ class CreatePageRequest extends Request
         return [
             'name' => 'required|string|max:100',
             'url' => 'required|string|unique:pages',
+            'titlepic' => 'required|string',
             'content' => 'required|string',
         ];
     }
@@ -25,6 +26,7 @@ class CreatePageRequest extends Request
         return [
             'name.required' => '单页名称必须',
             'name.max' => '单页名称最多100个字符',
+            'titlepic.required' => '单页图片必填',
             'url.required' => '单页路由必填',
         ];
     }

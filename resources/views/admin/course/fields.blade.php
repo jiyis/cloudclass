@@ -91,6 +91,14 @@
                         </div>
                     @endforeach
 
+                    <div class="form-group">
+                        {!! Form::label('teacher_id', '授课老师', ['class'=>'col-sm-2 control-label']) !!}
+                        <div class="col-sm-4 ">
+                            {!! Form::select('teacher_id', $teachers, null, ['class' => 'form-control select2']) !!}
+                        </div>
+                    </div>
+
+
                 </div>
                 <!-- /.row -->
             </div>

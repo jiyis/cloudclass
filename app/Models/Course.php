@@ -24,6 +24,7 @@ class Course extends Model
             'syllabus',
             'content',
             'click',
+            'teacher_id',
         ];
 
     /**
@@ -41,6 +42,14 @@ class Course extends Model
     public function user()
     {
         return $this->belongsToMany(User::class, 'member_has_courses', 'class_id', 'user_id');
+    }
+
+    /**
+     *  主讲老师
+     */
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class, 'teacher_id', 'id');
     }
 
 

@@ -14,17 +14,20 @@ class UpdatePageRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|max:100',
+            'name' => 'required|string|max:100',
             'url' => 'required|string|unique:pages,url,'.$this->route()->page,
+            'titlepic' => 'required|string',
+            'content' => 'required|string',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => '分类名称必须',
-            'name.max' => '分类名称最多100个字符',
-            'url.required' => '分类类别必填',
+            'name.required' => '单页名称必须',
+            'name.max' => '单页名称最多100个字符',
+            'titlepic.required' => '单页图片必填',
+            'url.required' => '单页路由必填',
         ];
     }
 }

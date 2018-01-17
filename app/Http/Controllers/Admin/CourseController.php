@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Repository\CategoryRepository;
+use App\Repository\TeacherRepository;
 use App\Services\CommonService;
 use Illuminate\Http\Request;
 use App\Repository\CourseRepository;
@@ -14,11 +15,15 @@ class CourseController extends Controller
 {
     protected $course;
 
-    public function __construct(CourseRepository $course)
+    protected $teacher;
+
+    public function __construct(CourseRepository $course, TeacherRepository $teacher)
     {
         parent::__construct();
 
         $this->course = $course;
+
+        $this->teacher = $teacher;
 
         Breadcrumbs::register('admin-course', function ($breadcrumbs) {
             $breadcrumbs->parent('控制台');
@@ -26,6 +31,7 @@ class CourseController extends Controller
         });
 
         view()->share('categories', CommonService::getAllCategory());
+        view()->share('teachers', $this->teacher->all(['id','name'])->pluck('name', 'id'));
     }
 
     public function index()

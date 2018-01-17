@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePagesTable extends Migration
+class CreateTeacherTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('teachers', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->comment('单页名称，用于路由');
-            $table->string('url')->comment('单页url，用于展示');
-            $table->string('titlepic')->comment('单页标题图片');
-            $table->longText('content')->comment('单页内容');
+            $table->string('name')->comment('教师名称');
+            $table->string('titlepic')->comment('教师头像');
+            $table->text('description')->comment('教师简介');
             $table->timestamps();
             $table->softDeletes();
         });
+
     }
 
     /**
@@ -31,6 +31,6 @@ class CreatePagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pages');
+        Schema::dropIfExists('teacher');
     }
 }

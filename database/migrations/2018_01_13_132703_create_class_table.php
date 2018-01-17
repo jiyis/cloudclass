@@ -23,11 +23,12 @@ class CreateClassTable extends Migration
             $table->text('target')->nullable()->comment('课程目标');
             $table->text('syllabus')->nullable()->comment('课程大纲');
             $table->longText('content')->nullable()->comment('课程内容');
+            $table->integer('teacher_id')->comment('主讲老师');
             $table->integer('click')->default(0)->comment('点击数');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(['name', 'period', 'minute', 'click', 'updated_at']);
+            $table->index(['name', 'period', 'minute', 'click', 'teacher_id', 'updated_at']);
         });
     }
 
