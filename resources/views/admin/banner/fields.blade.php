@@ -8,37 +8,31 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <i class="fa fa-edit"></i>
-                <h3 class="box-title"> 单页编辑</h3>
+                <h3 class="box-title"> banner编辑</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
                 <div class="row">
                     <div class="form-group">
-                        {!! Form::label('name', '单页名称',['class'=>'col-sm-2 control-label']) !!}
+                        {!! Form::label('title', 'banner名称',['class'=>'col-sm-2 control-label']) !!}
                         <div class="col-sm-4">
-                            {!! Form::text('name', old('name'), ['class' => 'form-control','placeholder' => '请填写单页名称']) !!}
+                            {!! Form::text('title', old('title'), ['class' => 'form-control','placeholder' => '请填写banner名称']) !!}
                         </div>
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label('url', '单页路由',['class'=>'col-sm-2 control-label']) !!}
-                        <div class="col-sm-4">
-                            {!! Form::text('url', old('url'), ['class' => 'form-control','placeholder' => '请填写单页url: 例如news']) !!}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {!! Form::label('titlepic', '列表标题图片',['class'=>'col-sm-2 control-label']) !!}
-                        <div class="col-sm-6 ">
-                            <div id="project-files" class="dropzone dropzone-pic" ></div>
+                        {!! Form::label('titlepic', 'banner标题图片',['class'=>'col-sm-2 control-label']) !!}
+                        <div class="col-sm-3">
+                            <div id="project-files" class="dropzone " ></div>
                             {!! Form::hidden('titlepic', old('titlepic'), ['id' => 'userpicval']) !!}
                         </div>
                     </div>
 
 
                     <div class="form-group">
-                        {!! Form::label('content', '单页内容',['class'=>'col-sm-2 control-label']) !!}
+                        {!! Form::label('description', 'banner内容',['class'=>'col-sm-2 control-label']) !!}
                         <div class="col-sm-9">
-                            {!! Form::textarea('content', old('content'), ['class' => 'tooltips','id' => 'content','placeholder' => '请填写单页简介']) !!}
+                            {!! Form::textarea('description', old('description'), ['class' => 'tooltips','id' => 'description','placeholder' => '请填写banner简介']) !!}
                         </div>
                     </div>
 
@@ -65,7 +59,7 @@
     <script type="text/javascript" src="/assets/dropzone/dropzone.min.js"></script>
     <script type="text/javascript">
 
-        var ue = UE.getEditor('content', {
+        var ue = UE.getEditor('description', {
             /*toolbars: [
              ['fullscreen', 'source', 'undo', 'redo', 'bold']
              ],*/

@@ -20,6 +20,8 @@ class Teacher extends Model
             'description',
         ];
 
+    protected $hidden = ['id', 'created_at', 'updated_at', 'deleted_at'];
+
     /**
      * 教师所教课程
      */

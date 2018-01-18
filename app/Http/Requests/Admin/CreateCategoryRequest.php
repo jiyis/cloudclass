@@ -16,6 +16,7 @@ class CreateCategoryRequest extends Request
         return [
             'name' => 'required|max:100',
             'type' => 'required|integer',
+            'url' => 'required|string|unique:category',
         ];
     }
 
@@ -25,7 +26,9 @@ class CreateCategoryRequest extends Request
             'name.required' => '分类名称必须',
             'name.max' => '分类名称最多100个字符',
             'type.required' => '分类类别必填',
-            'type.integer' => '分类类别必须为数字'
+            'type.integer' => '分类类别必须为数字',
+            'url.required' => '分类url必须填写',
+            'url.unique' => '分类url是不可重复'
         ];
     }
 }

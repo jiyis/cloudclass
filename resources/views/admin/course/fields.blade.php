@@ -109,7 +109,7 @@
                     <div class="col-sm-4 col-sm-offset-10">
                         <button class="btn bg-blue">保存</button>
                         &nbsp;
-                        <a href="{{ route('admin.category.index') }}" class="btn btn-default">取消</a>
+                        <a href="{{ route('admin.course.index') }}" class="btn btn-default">取消</a>
                     </div>
                 </div>
             </div><!-- panel-footer -->

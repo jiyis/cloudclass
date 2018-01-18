@@ -12,7 +12,7 @@ class Category extends Model
 
     protected $table = 'category';
 
-    protected $fillable = ['name', 'type'];
+    protected $fillable = ['name', 'type', 'url'];
 
     /**
      * 分类下的课程

@@ -5,7 +5,8 @@ namespace App\Http\Middleware;
 use App\Repository\LogRepository;
 use App\Repository\OperationLogRepository;
 use Closure;
-use Route,URL,Auth;
+use URL,Auth;
+use Illuminate\Support\Facades\Route;
 
 class AuthenticateAdmin
 {

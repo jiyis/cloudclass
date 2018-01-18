@@ -27,6 +27,8 @@ class Course extends Model
             'teacher_id',
         ];
 
+    protected $hidden = ['id', 'created_at', 'updated_at', 'deleted_at'];
+
     /**
      * 课程所属分类
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

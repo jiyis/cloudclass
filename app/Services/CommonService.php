@@ -61,6 +61,11 @@ class CommonService
             foreach ($fmenus as $item) {
                 $originName = $item->getOriginal()['name'];
                 $item       = $item->toArray();
+                if(stripos($item['name'],'/')) {
+                    $explodeRoute        = explode('/', $item['name']);
+                    $item['name'] = current($explodeRoute);
+                    $item['params'] = end($explodeRoute);
+                }
                 if (($item['name'] !== '#' && $item['name'] !== '##') && !Route::has($item['name'])) {
                     continue;
                 }
@@ -78,7 +83,11 @@ class CommonService
                 if ($item['name'] == '#') {
                     $url = '#';
                 } else {
-                    $url = route($item['name']);
+                    if(isset($item['params'])) {
+                        $url = route($item['name'], $item['params']);
+                    } else {
+                        $url = route($item['name']);
+                    }
                 }
                 $item['href'] = ($item['name'] == '#') ? '#' : $url;
 
@@ -88,7 +97,14 @@ class CommonService
                             /*if(stripos($sub['name'],'.*')){
                                 $sub['name'] = str_replace('.*','.index',$sub['name']);
                             }*/
-                            $sub['href']  = route($sub['name']);
+                            if(stripos($sub['name'],'/')) {
+                                $value = explode('/', $sub['name']);
+                                $sub['href']  = route($sub['name'], end($value));
+                                $sub['name'] = current($value);
+                            } else {
+                                $sub['href']  = route($sub['name']);
+                            }
+
                             $sub['icon']  = $sub['icon_html'] ? $sub['icon_html'] : '<i class="fa fa-circle-o"></i>';
                             $sub['class'] = '';
                             if (str_contains($sub['name'], $curRoutes)) {

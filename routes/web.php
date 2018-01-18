@@ -59,6 +59,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'mi
     //教师列表
     Route::resource('teacher', 'TeacherController');
 
+    //教师列表
+    Route::resource('banner', 'BannerController');
+
 
     //上传图片
     Route::post('upload/uploadFile','UploadController@uploadFile')->name('upload.uploadfile');
@@ -73,23 +76,3 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.', 'mi
 });
 
 
-Route::auth();
-Route::get('logout', 'Auth\LoginController@logout');
-
-Route::group(['namespace' => 'Index', 'middleware' => 'auth:web'], function () {
-    Route::get('project/export',['as'=>'project.export','uses'=>'ProjectController@export']);
-    Route::resource('project', 'ProjectController');
-    Route::get('project/upload/{id}',['as'=>'project.uploadEdit','uses'=>'ProjectController@uploadEdit']);
-    Route::post('project/upload/{id}',['as'=>'project.upload','uses'=>'ProjectController@upload']);
-    Route::post('project/publish/{id}', ['as'=>'project.publish','uses'=>'ProjectController@publish']);
-    Route::get('/', 'HomeController@index')->name('home');
-    Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('/center', 'HomeController@center')->name('home.center');
-    Route::patch('/center', 'HomeController@update')->name('home.center.update');
-
-    //上传图片
-    Route::post('upload/uploadFile','UploadController@uploadFile')->name('upload.uploadfile');
-    Route::post('upload/uploadImage','UploadController@uploadImage')->name("upload.uploadimage");
-    Route::post('upload/deleteFile','UploadController@deleteFile')->name("upload.deletefile");
-
-});

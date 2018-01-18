@@ -13,7 +13,6 @@ class UpdateCourseRequest extends Request
 {
     public function rules()
     {
-        return [];
         return [
             'name' => 'required|string|max:100',
             'period' => 'required|integer',

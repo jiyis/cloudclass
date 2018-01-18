@@ -14,5 +14,13 @@ class Lists extends Model
 
     protected $fillable = ['title', 'category', 'titlepic', 'description', 'content'];
 
+    /**
+     * 新闻所属分类
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function cate()
+    {
+        return $this->belongsTo(Category::class, 'category', 'id');
+    }
 
 }

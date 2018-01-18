@@ -10,11 +10,12 @@
 namespace App\Http\Controllers\Api;
 
 
-use App\Http\Resources\CourseCollection;
+use App\Http\Resources\BannerCollection;
+use App\Models\Banner;
 use App\Repository\CourseRepository;
 use Illuminate\Http\Request;
 
-class CourseController extends Controller
+class IndexController extends Controller
 {
 
     public $repository;
@@ -24,11 +25,10 @@ class CourseController extends Controller
         $this->repository = $repository;
     }
 
-    public function index(Request $request)
+    public function banner(Request $request)
     {
-        $course = $this->repository->paginate(10);
-        return new CourseCollection($course);
-        return CourseCollection::collection($course);
+        $banners = Banner::all();
+        return new BannerCollection($banners);
     }
 
     public function search(Request $request)

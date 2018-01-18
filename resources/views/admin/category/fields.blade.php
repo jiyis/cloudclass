@@ -20,6 +20,12 @@
                             {!! Form::select('type', getSelectCategory(), null, ['class' => 'form-control select2']) !!}
                         </div>
                     </div>
+                    <div class="form-group">
+                        {!! Form::label('url', '类别url',['class'=>'col-sm-2 control-label']) !!}
+                        <div class="col-sm-4">
+                            {!! Form::text('url', old('url'), ['class' => 'form-control','placeholder' => '请填写类别url']) !!}
+                        </div>
+                    </div>
                 </div>
                 <!-- /.row -->
             </div>
