@@ -25,7 +25,7 @@ class BannerCollection extends ResourceCollection
             return [
                 'id'          => $item->id,
                 'title'       => $item->title,
-                'titlepic'    => \Storage::url($item->titlepic),
+                'titlepic'    => asset($item->titlepic),
                 'description' => $item->description,
                 'created_at'  => $item->created_at->toDateString(),
 

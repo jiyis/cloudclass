@@ -17,7 +17,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => 'api'], function () {
+Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => ['api', 'api.cross']], function () {
     Route::get('courses', 'CourseController@index')->name('course.index');
     Route::get('banners', 'IndexController@banner')->name('index.banner');
     Route::get('lists/{url}', 'ListController@index')->name('list.index');
