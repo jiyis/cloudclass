@@ -60,5 +60,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'auth.admin' => \App\Http\Middleware\AuthenticateAdmin::class,
         'api.cross' => \App\Http\Middleware\CrossHttp::class,
+        'refresh.token' => \App\Http\Middleware\RefreshToken::class,
     ];
 }

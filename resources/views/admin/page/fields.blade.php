@@ -34,6 +34,12 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        {!! Form::label('description', '单页简介',['class'=>'col-sm-2 control-label']) !!}
+                        <div class="col-sm-9">
+                            {!! Form::textarea('description', old('description'), ['class' => 'tooltips','id' => 'description','placeholder' => '请填写单页简介']) !!}
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         {!! Form::label('content', '单页内容',['class'=>'col-sm-2 control-label']) !!}
@@ -66,6 +72,17 @@
     <script type="text/javascript">
 
         var ue = UE.getEditor('content', {
+            /*toolbars: [
+             ['fullscreen', 'source', 'undo', 'redo', 'bold']
+             ],*/
+            initialFrameHeight: 420,
+            autoHeightEnabled: false,
+        });
+        ue.ready(function() {
+            ue.execCommand('serverparam', '_token', '{{ csrf_token() }}'); // 设置 CSRF token.
+        });
+
+        var ue = UE.getEditor('description', {
             /*toolbars: [
              ['fullscreen', 'source', 'undo', 'redo', 'bold']
              ],*/

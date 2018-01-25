@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\Resource;
 
 
-class PageCollection extends Resource
+class ListItem extends Resource
 {
 
     public function __construct($resource)
@@ -26,7 +26,8 @@ class PageCollection extends Resource
         $this->titlepic = \Storage::url($this->titlepic);
         return [
             'id'          => $this->id,
-            'name'        => $this->name,
+            'title'       => $this->title,
+            'category'    => $this->cate->name,
             'titlepic'    => asset($this->titlepic),
             'description' => $this->description,
             'content'     => $this->content,

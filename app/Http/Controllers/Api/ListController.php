@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Resources\ListCollection;
+use App\Http\Resources\ListItem;
 use App\Models\Lists;
 use App\Repository\CategoryRepository;
 use App\Repository\ListRepository;
@@ -30,9 +31,23 @@ class ListController extends Controller
     {
         //先获取type id
         $category = app(CategoryRepository::class)->findWhere(['url' => $url])->first();
-        $lists = Lists::where(['category' => $category->id])->paginate(10);
+        if($limit = $request->input('limit')) {
+            $lists = Lists::where(['category' => $category->id])->take($limit)->orderBy('id', 'desc')->get();
+        } else {
+            $lists = Lists::where(['category' => $category->id])->orderBy('id', 'desc')->paginate(10);
+        }
+
 
         return new ListCollection($lists);
+    }
+
+    public function show(Request $request, $url, $id)
+    {
+        //先获取type id
+        $category = app(CategoryRepository::class)->findWhere(['url' => $url])->first();
+        $lists = Lists::where(['category' => $category->id])->find($id);
+
+        return new ListItem($lists);
     }
 
 }

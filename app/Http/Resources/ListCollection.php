@@ -15,12 +15,13 @@ class ListCollection extends ResourceCollection
     public function toArray($request)
     {
         return $this->collection->mapWithKeys(function ($item, $key) {
+            $item->titlepic = \Storage::url($item->titlepic);
             return [
                 $key => [
                     'id'          => $item->id,
                     'title'       => $item->title,
                     'category'    => $item->cate->name,
-                    'titlepic'    => \Storage::url($item->titlepic),
+                    'titlepic'    => asset($item->titlepic),
                     'description' => $item->description,
                     'content'     => $item->content,
                     'created_at'  => $item->created_at->toDateString(),

@@ -18,6 +18,7 @@ class CreatePagesTable extends Migration
             $table->string('name')->comment('单页名称，用于路由');
             $table->string('url')->comment('单页url，用于展示');
             $table->string('titlepic')->comment('单页标题图片');
+            $table->text('description')->comment('单页简介');
             $table->longText('content')->comment('单页内容');
             $table->timestamps();
             $table->softDeletes();
