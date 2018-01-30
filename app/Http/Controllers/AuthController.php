@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Transformers\UserTransformer;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -20,11 +22,11 @@ class AuthController extends Controller
     {
         // 验证规则，由于业务需求，这里我更改了一下登录的用户名，使用手机号码登录
         $rules = [
-            'name'   => [
+            'name'     => [
                 'required',
                 'exists:users',
             ],
-            'password' => 'required|string|min:6|max:20',
+            'password' => 'required|string',
         ];
 
         // 验证参数，如果验证失败，则会抛出 ValidationException 的异常
@@ -33,7 +35,7 @@ class AuthController extends Controller
         // 使用 Auth 登录用户，如果登录成功，则返回 201 的 code 和 token，如果登录失败则返回
         return ($token = Auth::guard('api')->attempt($params))
             ? response(['token' => 'bearer ' . $token], 201)
-            : response(['error' => '账号或密码错误'], 400);
+            : response(['error' => '账号或密码错误'], 422);
     }
 
     /**
@@ -46,5 +48,35 @@ class AuthController extends Controller
         Auth::guard('api')->logout();
 
         return response(['message' => '退出成功']);
+    }
+
+    public function expire(Request $request)
+    {
+        if (JWTAuth::parser()->setRequest($request)->hasToken()) {
+            //return response(['expire' => 0]);
+            try {
+                $user = JWTAuth::parseToken()->authenticate();
+                return response(['expire' => 0]);
+            } catch (TokenExpiredException $exception) {
+                return response(['expire' => 1]);
+            }
+        } else {
+            return response(['expire' => 0]);
+        }
+    }
+
+    public function center(Request $request)
+    {
+        if (JWTAuth::parser()->setRequest($request)->hasToken()) {
+            //return response(['expire' => 0]);
+            try {
+                $user = JWTAuth::parseToken()->authenticate();
+                return response(['status' => 1, 'user' => ['name' => $user->name, 'course' => $user->course]]);
+            } catch (TokenExpiredException $exception) {
+                return response(['status' => 0]);
+            }
+        } else {
+            return response(['status' => 0]);
+        }
     }
 }

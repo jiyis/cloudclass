@@ -13,6 +13,8 @@ class Course extends Model
 
     protected $table = 'class';
 
+
+
     protected $fillable
         = [
             'name',
@@ -27,7 +29,7 @@ class Course extends Model
             'teacher_id',
         ];
 
-    protected $hidden = ['id', 'created_at', 'updated_at', 'deleted_at'];
+    protected $hidden = ['created_at', 'updated_at', 'deleted_at'];
 
     /**
      * 课程所属分类
@@ -36,6 +38,27 @@ class Course extends Model
     public function category()
     {
         return $this->belongsToMany(Category::class, 'category_has_class', 'class_id', 'category_id');
+    }
+
+    /**
+     * @param array $ids
+     * @param int $priceId
+     * @return mixed
+     */
+    public function free($ids = [], $priceId)
+    {
+        //where(['category_id' => 9])->
+        if (empty($priceId)) {
+            $items = CourseCategory::whereIn('category_id', $ids)->get();
+            $classId = $items->pluck('class_id')->toArray();
+        } else {
+            $items = CourseCategory::whereIn('category_id', $ids)->get();
+            $priceItem = CourseCategory::where(['category_id' => $priceId])->get();
+            $classId = $items->pluck('class_id')->intersect($priceItem->pluck('class_id')->toArray())->toArray();
+        }
+
+
+        return $this->whereIn('id', $classId);
     }
 
     /**

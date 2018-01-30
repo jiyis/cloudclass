@@ -15,6 +15,12 @@ use App\Models\Course;
 
 class CourseRepository extends BaseRepository
 {
+    protected $fieldSearchable = [
+        'name',
+        'description',
+        'updated_at',
+        'click'
+    ];
 
     public function model()
     {
@@ -27,7 +33,6 @@ class CourseRepository extends BaseRepository
     public function boot()
     {
         parent::boot();
-        //$this->pushCriteria(app(MemberCriteria::class));
 
     }
 

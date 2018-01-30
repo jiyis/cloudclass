@@ -17,16 +17,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('auth')->group(function($router) {
+Route::group(['prefix' => 'auth', ], function($router) {
     $router->post('login', 'AuthController@login');
     $router->post('logout', 'AuthController@logout');
+    $router->get('expire', 'AuthController@expire');
+    $router->get('center', 'AuthController@center');
 
 });
 
 Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => ['api', 'api.cross']], function () {
-    Route::get('courses', 'CourseController@index')->name('course.index')->middleware(['refresh.token']);
+    //->middleware(['refresh.token'])
+    Route::get('courses', 'CourseController@index')->name('course.index');
+    Route::get('courses/search', 'CourseController@search')->name('course.search');
+    Route::get('courses/{id}', 'CourseController@show')->name('course.show')->middleware(['refresh.token']);
     Route::get('banners', 'IndexController@banner')->name('index.banner');
     Route::get('lists/{url}', 'ListController@index')->name('list.index');
     Route::get('lists/{url}/{id}', 'ListController@show')->name('list.show');
     Route::get('pages/{url}', 'PageController@index')->name('page.index');
+    Route::get('category/{type}', 'CategoryController@index')->name('category.index');
+    Route::patch('user', 'UserController@index')->name('user.update');
 });

@@ -6,6 +6,13 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class CourseCollection extends ResourceCollection
 {
+
+    public function __construct($resource, $warp = 'data')
+    {
+        parent::__construct($resource);
+        static::$wrap = $warp;
+    }
+
     /**
      * Transform the resource collection into an array.
      *
@@ -19,7 +26,7 @@ class CourseCollection extends ResourceCollection
             $teacher = '';
             if (!is_null($item->teacher)) {
                 $teacher           = $item->teacher;
-                $teacher->titlepic = \Storage::url($item->teacher->titlepic);
+                $teacher->titlepic = asset(\Storage::url($item->teacher->titlepic));
             }
             $append         = [
                 'category' => $item->category->map(function ($value) {
@@ -31,7 +38,7 @@ class CourseCollection extends ResourceCollection
                 }),
                 'teacher'  => $teacher,
             ];
-            $item->titlepic = \Storage::url($item->titlepic);
+            $item->titlepic = asset(\Storage::url($item->titlepic));
             $result[]       = array_merge($item->toArray(), $append);
 
             return $item;
