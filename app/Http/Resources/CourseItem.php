@@ -27,9 +27,7 @@ class CourseItem extends Resource
     {
         $this->titlepic          = \Storage::url($this->titlepic);
         $this->teacher->titlepic = asset(\Storage::url($this->teacher->titlepic));
-        $priceType               = $this->category->filter(function ($item) {
-            return $item->type == 10;
-        })->isEmpty();
+        $priceType  = $this->category->where('type', 3)->first()->id == 10 ? true : false;
 
         $data = [
             'id'          => $this->id,
@@ -44,8 +42,13 @@ class CourseItem extends Resource
             'category'    => $this->category,
             'created_at'  => $this->created_at->toDateString(),
         ];
+
         //如果是付费课程，并且登录了
-        if ($priceType && config('user') && $this->check(config('user'), $data)) {
+        if ($priceType) {
+            if (config('user') && $this->check(config('user'), $data)) {
+                $data['content'] = $this->content;
+            }
+        } else {
             $data['content'] = $this->content;
         }
         return $data;
