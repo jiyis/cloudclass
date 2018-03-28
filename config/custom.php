@@ -38,6 +38,11 @@ return [
             'value' => 'news',
             'type'  => 'multi',
         ],
+        5 => [
+            'label' => "行业领域",
+            'value' => 'area',
+            'type'  => 'single',
+        ],
     ],
 
     /**

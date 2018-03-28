@@ -31,6 +31,7 @@ class CourseCriteria implements CriteriaInterface
             'age'   => $this->request->input('age'),
             'stem'  => $this->request->input('stem'),
             'price' => $this->request->input('price'),
+            'hangye' => $this->request->input('hangye'),
         ];
         if (collect($categoryFilter)->filter()->isNotEmpty()) {
             $filter = collect($categoryFilter)->filter(function ($item, $key) {

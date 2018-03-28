@@ -54,4 +54,11 @@ class CourseController extends Controller
         return new CourseItem($course);
     }
 
+    public function click(Request $request, $id)
+    {
+        $course = $this->repository->find($id);
+        $course->increment('click');
+        return new CourseItem($course);
+    }
+
 }
