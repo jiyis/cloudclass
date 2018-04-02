@@ -36,4 +36,5 @@ Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => ['api', 'api
     Route::get('pages/{url}', 'PageController@index')->name('page.index');
     Route::get('category/{type}', 'CategoryController@index')->name('category.index');
     Route::patch('user', 'UserController@index')->name('user.update');
+    Route::get('click/{id}', 'CourseController@click')->name('course.click');
 });
