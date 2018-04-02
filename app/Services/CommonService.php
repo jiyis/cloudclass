@@ -133,7 +133,7 @@ class CommonService
         $categories = app(Category::class)->all();
 
         return $categories->filter(function ($item) {
-            return $item->name != '新闻资讯';
+            return in_array($item->type, [1,2,3,5]);
         })->groupBy('type')->map(function ($item) {
             return $item->pluck('name', 'id');
         })->toArray();
