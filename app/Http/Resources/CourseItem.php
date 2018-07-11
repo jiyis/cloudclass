@@ -26,7 +26,12 @@ class CourseItem extends Resource
     public function toArray($request)
     {
         $this->titlepic          = \Storage::url($this->titlepic);
-        $this->teacher->titlepic = asset(\Storage::url($this->teacher->titlepic));
+        if (!is_null($this->teacher)) {
+            $this->teacher->titlepic = asset(\Storage::url($this->teacher->titlepic));
+        } else {
+            $this->teacher = '';
+        }
+
 
         $priceType               = $this->category->filter(function ($item) {
             return $item->id == 24;

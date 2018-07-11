@@ -34,7 +34,7 @@ class AuthController extends Controller
 
         // 使用 Auth 登录用户，如果登录成功，则返回 201 的 code 和 token，如果登录失败则返回
         return ($token = Auth::guard('api')->attempt($params))
-            ? response(['token' => 'bearer ' . $token], 201)
+            ? response(['token' => 'bearer ' . $token, 'expire' => 300], 201)
             : response(['error' => '账号或密码错误'], 422);
     }
 

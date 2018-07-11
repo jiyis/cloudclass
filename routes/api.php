@@ -27,8 +27,8 @@ Route::group(['prefix' => 'auth', ], function($router) {
 
 Route::group(['namespace' => 'Api', 'as' => 'api.', 'middleware' => ['api', 'api.cross']], function () {
     //->middleware(['refresh.token'])
-    Route::get('courses', 'CourseController@index')->name('course.index');
-    Route::get('courses/search', 'CourseController@search')->name('course.search');
+    Route::get('courses', 'CourseController@index')->name('course.index')->middleware(['refresh.token']);
+    Route::get('courses/search', 'CourseController@search')->name('course.search')->middleware(['refresh.token']);
     Route::get('courses/{id}', 'CourseController@show')->name('course.show')->middleware(['refresh.token']);
     Route::get('banners', 'IndexController@banner')->name('index.banner');
     Route::get('lists/{url}', 'ListController@index')->name('list.index');
